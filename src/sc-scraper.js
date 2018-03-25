@@ -5,7 +5,7 @@ const getAllTracks = (userId, options) => {
     return new Promise((fulfill, reject) => {
         const uri = createLikesUri(soundcloudAPI, userId, options.filterOptions.limit, options.client_id);
         request(uri, (err, res, body) => {
-            if(!body.length || typeof body !== "string"){
+            if(!body || typeof body !== "string"){
                 reject("Could not any tracks");
             } else { 
                 const allTracks = JSON.parse(body);
@@ -21,7 +21,7 @@ const getUserId = (userName, client_id) => {
     return new Promise((fulfill, reject) => {
         const uri = createGetUserIDUri(userName, client_id);
         request(uri, (err, res, body) => {
-            if(!body.length || typeof body !== "string"){
+            if(!body || typeof body !== "string"){
                 reject("Could not retrieve user information, check user name is correct");
             } else {
                 const userInfo = JSON.parse(body);
