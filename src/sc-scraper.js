@@ -1,4 +1,3 @@
-//const async = require('async');
 const request = require('request');
 const soundcloudAPI = 'http://api.soundcloud.com'
 

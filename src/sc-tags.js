@@ -1,7 +1,4 @@
 const nodeID3 = require('node-id3');
-const path = require('path');
-const fs = require('fs');
-const request = require('request');
 const sc_events = require('./utils/sc-events');
 
 const appendTags = (path, trackInfo) => {

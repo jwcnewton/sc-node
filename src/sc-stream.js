@@ -11,7 +11,7 @@ const downloadStreams = (trackInfos, client_id) => {
         const trackInfo = trackInfos[i];
         dlArry.push(downloadStream(trackInfo, client_id))
     }
-    Promise.all(dlArry).then(function(){
+    return Promise.all(dlArry).then(function(){
         sc_events.emit('progress', 'All Done!');
     });
 }
@@ -22,7 +22,7 @@ const downloadStream = (trackInfo, client_id) => {
         const filename = sanitize(trackInfo.title);
 
         const stream = request(`${trackUri}?client_id=${client_id}`)
-            .pipe(fs.createWriteStream(`${filename}.${trackInfo.original_format}`))
+            .pipe(fs.createWriteStream(`${filename}.mp3`))
 
         stream.on('finish', () => {
             sc_events.emit('progress', `Pulled track: ${filename}`);
