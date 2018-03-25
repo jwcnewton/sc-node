@@ -22,6 +22,6 @@ function SC(options) {
     }
 }
 
-SC.prototype.events = sc_events;
+SC.events = sc_events;
 
 exports = module.exports = SC;
