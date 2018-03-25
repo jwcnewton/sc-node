@@ -16,6 +16,14 @@
     "request": "^2.85.0",
     "sanitize-filename": "^1.6.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwcnewton/sc-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jwcnewton/sc-node/issues"
+  },
+  "homepage": "https://github.com/jwcnewton/sc-node#readme",
   "devDependencies": {
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
