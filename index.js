@@ -7,17 +7,17 @@ module.exports = exports = function Constructor(options) {
         sc_events.emit('err', err);
     }
     if (!options.userId) {
-        sc_scraper.getUserId(options.userName, options.client_id)
+        return sc_scraper.getUserId(options.userName, options.client_id)
             .then((userId) => {
                 return sc_scraper.getAllTracks(userId, options)
             }, handleErrorResponse)
             .then((links) => {
-                sc_stream.downloadStreams(links, options.client_id);
+                return sc_stream.downloadStreams(links, options.client_id);
             }, handleErrorResponse);
     } else {
-        sc_scraper.getAllTracks(options.userId, options)
+        return sc_scraper.getAllTracks(options.userId, options)
             .then((links) => {
-                sc_stream.downloadStreams(links, options.client_id);
+                return sc_stream.downloadStreams(links, options.client_id);
             }, handleErrorResponse);
     }
 }
