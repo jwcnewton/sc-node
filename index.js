@@ -2,7 +2,7 @@ const sc_scraper = require('./src/sc-scraper');
 const sc_stream = require('./src/sc-stream');
 const sc_events = require('./src/utils/sc-events');
 
-module.exports = exports = function Constructor(options) {
+function SC(options) {
     const handleErrorResponse = (err) => {
         sc_events.emit('err', err);
     }
@@ -21,3 +21,7 @@ module.exports = exports = function Constructor(options) {
             }, handleErrorResponse);
     }
 }
+
+SC.prototype.events = sc_events;
+
+exports = module.exports = SC;
