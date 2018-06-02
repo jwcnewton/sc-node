@@ -37,9 +37,30 @@ const getUserId = (userName, client_id) => {
     });
 }
 
+const getUserDetails = (userName, client_id) => {
+    return new Promise((fulfill, reject) => {
+        const uri = createGetUserIDUri(userName, client_id);
+        request(uri, (err, res, body) => {
+            if(!body || typeof body !== "string"){
+                reject("Could not retrieve user information, check user name is correct");
+            } else {
+                const userInfo = JSON.parse(body);
+                if (!userInfo || !userInfo.id) {
+                    reject("Could not retrieve user information, check user name is correct");
+                } else {
+                    fulfill(userInfo);
+                }
+            }
+        }).on('error', (e) => {
+            reject(e);
+        });
+    });
+}
+
 module.exports = {
     getAllTracks,
-    getUserId
+    getUserId,
+    getUserDetails
 };
 
 const createLikesUri = (soundcloudAPI, userId, limit, client_id) => {
