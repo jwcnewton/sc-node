@@ -10,7 +10,7 @@ const downloadStreams = (trackInfos, client_id, outputFolder) => {
         sc_events.emit('progress', `No tracks to download`);
     } else {
         if(outputFolder){
-            outputfolder = outputfolder;
+            outputfolder = outputFolder;
         }
         sc_events.emit('progress', `Downloading ${trackInfos.length} tracks`);
         const dlArry = [];
