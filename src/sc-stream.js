@@ -26,7 +26,7 @@ const downloadStreams = (trackInfos, client_id, outputFolder) => {
 
 const downloadStream = (trackInfo, client_id) => {
     return new Promise((fulfill, reject) => {
-        const trackUri = trackInfo.downloadable ? trackInfo.download_url : trackInfo.stream_url;
+        const trackUri = trackInfo.downloadable ? trackInfo.download_url : trackInfo.uri;
         const filename = sanitize(trackInfo.title);
 
         const stream = request(`${trackUri}?client_id=${client_id}`)
