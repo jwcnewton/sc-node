@@ -19,17 +19,14 @@ const getAllTracks = (userId, options) => {
 
 const getAllPlaylistInfo = (options) => {
     return new Promise((fulfill, reject) => {
-        const uri = createPlaylistUri(soundcloudAPI, options.playlist_url, options.client_id);
-        request(uri, (err, res, body) => {
-            if(!body || typeof body !== "string"){
-                reject("Could not get playlist tracks");
-            } else { 
-                const allTracks = JSON.parse(body);
-                fulfill(allTracks);
-            }   
-        }).on('error', (e) => {
-            reject(e);
-        });
+        return getPlaylist(options).then((playlistInfo) => {
+            let completeTracks = playlistInfo.tracks.filter(x => x.uri != undefined)
+            let missingTracks = playlistInfo.tracks.filter(x => x.uri == undefined).map(x => x.id);
+            return getTracks({ client_id: options.client_id, tracks: missingTracks }).then((tracks) => {
+                playlistInfo.tracks = [...completeTracks, ...tracks];
+                fulfill(playlistInfo);
+            }, reject);
+        }, reject);
     });
 }
 
@@ -47,6 +44,38 @@ const getUserId = (userName, client_id) => {
                     fulfill(userInfo.id);
                 }
             }
+        }).on('error', (e) => {
+            reject(e);
+        });
+    });
+}
+
+const getPlaylist = (options) => {
+    return new Promise((fulfill, reject) => {
+        const uri = createPlaylistUri(soundcloudAPI, options.playlist_url, options.client_id);
+        request(uri, (err, res, body) => {
+            if(!body || typeof body !== "string"){
+                reject("Could not get playlist tracks");
+            } else {
+                const allTracks = JSON.parse(body);
+                fulfill(allTracks);
+            }   
+        }).on('error', (e) => {
+            reject(e);
+        });
+    });
+}
+
+const getTracks = (options) => {
+    return new Promise((fulfill, reject) => {
+        const uri = createGetTracksUri(soundcloudAPI, options.tracks, options.client_id);
+        request(uri, (err, res, body) => {
+            if(!body || typeof body !== "string"){
+                reject("Could not get playlist tracks");
+            } else {
+                const allTracks = JSON.parse(body);
+                fulfill(allTracks);
+            }   
         }).on('error', (e) => {
             reject(e);
         });
@@ -90,4 +119,8 @@ const createPlaylistUri = (soundcloudAPI, playlistUri, clientId) => {
 
 const createGetUserIDUri = (userName, clientId) => {
     return `${soundcloudAPI}/resolve?url=http://soundcloud.com/${userName}&client_id=${clientId}`
+}
+
+const createGetTracksUri = (soundcloudAPI, track_ids, clientId) => {
+    return `${soundcloudAPI}/tracks?ids=${track_ids.join(",")}&client_id=${clientId}`
 }
