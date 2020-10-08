@@ -9,7 +9,7 @@ const getAllTracks = (userId, options) => {
                 reject("Could not retrieve any tracks");
             } else { 
                 const allTracks = JSON.parse(body);
-                fulfill(allTracks);
+                fulfill(allTracks.collection);
             }   
         }).on('error', (e) => {
             reject(e);
@@ -81,11 +81,11 @@ module.exports = {
 };
 
 const createLikesUri = (soundcloudAPI, userId, limit, client_id) => {
-    return `${soundcloudAPI}/users/${userId}/favorites?limit=${limit}format=json&client_id=${client_id}`;
+    return `${soundcloudAPI}/users/${userId}/track_likes?client_id=${client_id}&limit=${limit}`;
 }
 
 const createPlaylistUri = (soundcloudAPI, playlistUri, clientId) => {
-    return `${soundcloudAPI}/resolve?url=${playlistUri}?format=json&client_id=${clientId}`
+    return `${soundcloudAPI}/resolve?url=${playlistUri}&client_id=${clientId}`
 }
 
 const createGetUserIDUri = (userName, clientId) => {
