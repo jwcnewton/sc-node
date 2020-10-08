@@ -28,11 +28,3 @@ function SC(options) {
 SC.events = sc_events;
 
 exports = module.exports = SC;
-
-//sc_scraper.getAllTracks(60418745, { filterOptions: { limit : 2}, client_id: "LBCcHmRB8XSStWL6wKH2HPACspQlXg2P"})
-sc_scraper.getAllPlaylistInfo({playlist_url: "https://soundcloud.com/newtnn/sets/thick-mix", client_id: "LBCcHmRB8XSStWL6wKH2HPACspQlXg2P"}).then((x) => {
-    console.log(x.tracks.map(x => x.title));
-    sc_stream.downloadStreams(x.tracks, "LBCcHmRB8XSStWL6wKH2HPACspQlXg2P", "/Users/jonathannewton/Desktop/del me/").then((s) => {
-        console.log(s);
-    })
-});
