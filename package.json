@@ -1,6 +1,6 @@
 {
   "name": "sc-node",
-  "version": "2.0.2",
+  "version": "2.0.0",
   "description": "Node module for downloading soundcloud likes",
   "main": "index.js",
   "scripts": {
