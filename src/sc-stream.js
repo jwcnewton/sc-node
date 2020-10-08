@@ -1,5 +1,4 @@
 const request = require('request');
-const hls = require("node-hls-downloader");
 const sanitize = require("sanitize-filename");
 const fs = require('fs');
 const sc_tags = require('./sc-tags');
