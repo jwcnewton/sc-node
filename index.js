@@ -6,6 +6,9 @@ function SC(options) {
     const handleErrorResponse = (err) => {
         sc_events.emit('err', err);
     }
+    if(!options){
+        throw "Missing args";
+    }
     if (!options.userId) {
         return sc_scraper.getUserId(options.userName, options.client_id)
             .then((userId) => {
