@@ -20,7 +20,7 @@ function SC(options) {
     } else {
         return sc_scraper.getAllTracks(options.userId, options)
             .then((links) => {
-                return sc_stream.downloadStreams(links, options.client_id);
+                return sc_stream.downloadStreams(links.map(x => x.track), options.client_id);
             }, handleErrorResponse);
     }
 }
